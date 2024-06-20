@@ -17,7 +17,6 @@ export function useSocketListeners(
       makeAMove(move);
     });
     socket.on("time", (time) => {
-      console.log(time);
       setWhiteTime(Math.floor(time.wTime));
       setBlackTime(Math.floor(time.bTime));
     });
@@ -32,9 +31,7 @@ export function useSocketListeners(
       }
     });
     socket.on("timeOut", ({ winner }) => {
-      console.log("timeout", over);
       playGameEndSound();
-      console.log("soundplayed");
       setOver(`TimeOut! ${winner} wins`);
       winner === "White" ? setBlackTime(0) : setWhiteTime(0);
     });

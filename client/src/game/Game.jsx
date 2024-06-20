@@ -46,7 +46,6 @@ function Game({ players, room, orientation, cleanup, userName, timeControl }) {
 
     useEffect(() => {
         if ((whiteTime <= 0 || blackTime <= 0) && !over) {
-            console.log("checking")
             socket.emit("checkTime", { whiteTime, blackTime, room });
         }
     }, [chess, whiteTime, blackTime, over, room])

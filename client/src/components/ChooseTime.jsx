@@ -26,16 +26,7 @@ function ChooseTime({ setRoom, setPlayers, setOrientation, setTimeControl, setCh
     };
     const quickTimings = [["30 Secs", 30], ["1 Min", 60], [" 5 Mins", 300], ["10 Mins", 600], ["15 Mins", 900], ["30 Mins", 1800]]
 
-    function handleCreate() {
-        socket.emit("createRoom", { timeControl: Number(time) }, (r) => {
-            setRoom(r?.roomId);
-            setPlayers(r?.players)
-            setOrientation("white");
-            setTimeControl(r?.whiteTime);
-        });
-        setChooseTimeOpen(false);
-    }
-    function handleQuickStart(t) {
+    function handleCreate(t) {
         socket.emit("createRoom", { timeControl: Number(t) }, (r) => {
             setRoom(r?.roomId);
             setPlayers(r?.players)
@@ -44,7 +35,6 @@ function ChooseTime({ setRoom, setPlayers, setOrientation, setTimeControl, setCh
         });
         setChooseTimeOpen(false);
     }
-
     return (
         <Stack sx={{ width: mdsize ? '100%' : '70%' }}>
             <Box sx={{ marginBottom: "20px" }}>
@@ -62,7 +52,7 @@ function ChooseTime({ setRoom, setPlayers, setOrientation, setTimeControl, setCh
                                             color: 'primary.contrastText',
                                         }
                                     }}
-                                    onClick={() => handleQuickStart(val[1])}
+                                    onClick={() => handleCreate(val[1])}
                                 >
                                     {val[0]}
                                 </Item>
@@ -87,7 +77,7 @@ function ChooseTime({ setRoom, setPlayers, setOrientation, setTimeControl, setCh
                 <Typography variant="h7" > Minutes per side: {time / 60}</Typography>
                 <Stack direction="row" spacing={2} sx={{ marginTop: "20px" }}>
                     <Button variant='contained' onClick={() => setChooseTimeOpen(false)} >BACK</Button>
-                    <Button variant='contained' onClick={handleCreate} >CREATE</Button>
+                    <Button variant='contained' onClick={() => handleCreate(time)} >CREATE</Button>
                 </Stack>
             </Stack>
         </Stack >

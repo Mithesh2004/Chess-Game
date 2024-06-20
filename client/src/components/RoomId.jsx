@@ -2,12 +2,13 @@ import React, { useState } from 'react'
 import { Card, CardContent, Typography, Tooltip } from "@mui/material";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DoneRoundedIcon from '@mui/icons-material/DoneRounded';
+import copy from "copy-to-clipboard"
 
 function RoomId({ room }) {
-    
+
     const [isRoomIdCopied, setRoomIdCopied] = useState(false)
     function handleCopy() {
-        navigator.clipboard.writeText(room);
+        copy(room);
         setRoomIdCopied(true);
         setTimeout(() => {
             setRoomIdCopied(false);
